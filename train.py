@@ -27,7 +27,7 @@ def main():
     df = pd.read_parquet(args.data)
     logger.info(f"Data shape: {df.shape}, range: {df.index.min()} ~ {df.index.max()}")
 
-    from training.trainer import PipelineTrainer
+    from .trainer import PipelineTrainer
     trainer = PipelineTrainer(model_dir=args.model_dir)
     trainer.train_all(df)
 

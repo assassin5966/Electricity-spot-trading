@@ -33,9 +33,9 @@ def main():
     df = pd.read_parquet(args.data)
 
     from config import TARGET_COLUMNS, TIMEZONE, POINTS_PER_DAY
-    from models.base import GBDTQuantileModel
-    from models.moe_router import HolidayExpertEnsemble, MoERouter
-    from models.ensemble import SimpleBaseline
+    from .base import GBDTQuantileModel
+    from .moe_router import HolidayExpertEnsemble, MoERouter
+    from .ensemble import SimpleBaseline
 
     start_ts = pd.Timestamp(args.start_date, tz=TIMEZONE)
     end_ts = pd.Timestamp(args.end_date, tz=TIMEZONE) + pd.Timedelta(hours=23, minutes=45)
@@ -58,7 +58,7 @@ def main():
 
         feature_cols = model.feature_cols
         if feature_cols is None:
-            from training.trainer import PipelineTrainer
+            from .trainer import PipelineTrainer
             trainer = PipelineTrainer(model_dir=args.model_dir)
             feature_cols = trainer._get_base_feature_cols(df, target)
 

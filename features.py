@@ -171,7 +171,7 @@ def merge_weather(main_df: pd.DataFrame, weather_agg: pd.DataFrame) -> pd.DataFr
         logger.warning("    No weather data to merge")
         return main_df
 
-    weather_reindexed = weather_agg.reindex(main_df.index, method="nearest", tolerance=pd.Timedelta("1h"))
+    weather_reindexed = weather_agg.reindex(main_df.index, method="ffill")
     for c in weather_reindexed.columns:
         main_df[c] = weather_reindexed[c].values
 
